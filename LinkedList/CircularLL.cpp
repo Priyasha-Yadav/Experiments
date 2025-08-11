@@ -12,6 +12,55 @@ class Node{
     }
 };
 
+void insertionAtBeginning(Node*& head, int val){
+    Node* newNode = new Node(val);
+    if(head == nullptr){
+        head = newNode;
+        newNode->next = head;
+        return;
+    }
+    Node* ptr = head;
+    while(ptr->next != head){
+        ptr = ptr->next;
+    }
+    ptr->next = newNode;
+    newNode->next = head;
+    head = newNode;
+    return;
+}
+
+void insertionAtEnd(Node*& head, int val){
+    Node* newNode = new Node(val);
+    if(head == nullptr){
+        insertionAtBeginning(head, val);
+        return;
+    }
+    Node* ptr = head;
+    while(ptr->next != head){
+        ptr = ptr->next;
+    }
+    ptr->next = newNode;
+    newNode->next = head;
+
+    return;
+
+}
+
+void deletionAtBeginning(Node*& head){
+    
+}
+
+void printList(Node* head){
+    if(head == nullptr) return;
+    Node* temp = head;
+    do {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    } while (temp != head);
+    cout << "(back to head)" << endl;
+    return; 
+}
+
 int main(){
     vector<int> vec = {1,2,3,4,5,6};
     Node* head = new Node(vec[0]);
@@ -24,12 +73,9 @@ int main(){
     }
     ptr->next = head;
     
-     Node* temp = head;
-    do {
-        cout << temp->data << " -> ";
-        temp = temp->next;
-    } while (temp != head);
-    cout << "(back to head)" << endl;
+     insertionAtBeginning(head, 0);
+     insertionAtEnd(head, 7);
+    printList(head);
 
     
     return 0;

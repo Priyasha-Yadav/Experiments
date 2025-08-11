@@ -132,6 +132,7 @@ int main()
     DeletionAtEnd(head);
     DeletionAtBeginning(head);
     DeletionAtPosition(head, 3);
+    countNodes(head);
     PrintList(head);
     return 0;
 }
@@ -141,5 +142,14 @@ int main()
 // Write a function to search for a value in the doubly linked list.
 
 // Write a function to count the number of nodes.
+int countNodes(Node*&head){
+    int count = 0;
+    Node* ptr = head;
+    while(ptr!=nullptr){
+        ptr= ptr->next;
+        count++;
+    };
+    return count;
+}
 
 // Write a function to reverse a doubly linked list.

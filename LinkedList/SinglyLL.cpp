@@ -131,6 +131,16 @@ int main()
 
 // How do you count the number of nodes in a linked list?
 
+int countNodes(Node*&head){
+    int count = 0;
+    Node* ptr = head;
+    while(ptr!=nullptr){
+        ptr= ptr->next;
+        count++;
+    };
+    return count;
+}
+
 // Write a function to reverse a linked list.
 
 // How do you detect a loop in a linked list? (Floyd’s algorithm)
