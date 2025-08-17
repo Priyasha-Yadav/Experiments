@@ -24,7 +24,7 @@ void insertionAtEnd(Node *&head, int val)
 }
 
 // Insertion at the beginning of the linked list
-void insertionAtBegiinning(Node*&head, int val){
+void insertionAtBeginning(Node*&head, int val){
     Node* newNode = new Node(val);
     newNode->next = head;
     head = newNode;
@@ -36,7 +36,7 @@ void insertionAtPosition(Node *&head, int val, int pos)
 {
     if (pos == 0)
     {
-        insertionAtBegiinning(head, val);
+        insertionAtBeginning(head, val);
         return;
     }
     Node *ptr = head;
@@ -45,6 +45,7 @@ void insertionAtPosition(Node *&head, int val, int pos)
         ptr= ptr->next;
 
     }
+    if (ptr == nullptr) return;
     newNode->next = ptr->next;
     ptr->next = newNode;
     return;
@@ -73,24 +74,24 @@ void DeletionAtBeginning(Node*&head){
 }
 
 // Deletion at a specific position in the linked list
-void DeletionAtPostion(Node*&head, int pos){
-    if(!head) return;
+void DeletionAtPostion(Node*& head, int pos) {
+    if (!head) return;
 
-    if(pos==0){
+    if (pos == 0) {
         DeletionAtBeginning(head);
         return;
     }
 
-    Node*ptr = head;
-    for(int i = 1; i < pos-1; i++){
-        ptr=ptr->next;
-        Node* toDelete = ptr->next;
-        if(toDelete == nullptr) return; 
-        ptr->next = toDelete->next;
-        delete toDelete;
-        return;
+    Node* ptr = head;
+    for (int i = 1; i < pos && ptr->next != nullptr; i++) {
+        ptr = ptr->next;
     }
 
+    if (ptr->next == nullptr) return;
+
+    Node* toDelete = ptr->next;
+    ptr->next = toDelete->next;
+    delete toDelete;
 }
 
 // Function to print the linked list
@@ -121,7 +122,7 @@ int main()
 
     insertionAtEnd(head, 7);
     insertionAtPosition(head, 0, 3);
-    insertionAtBegiinning(head, 0);
+    insertionAtBeginning(head, 0);
     DeletionAtEnd(head);
     DeletionAtBeginning(head);
     DeletionAtPostion(head, 3);
@@ -142,7 +143,32 @@ int countNodes(Node*&head){
 }
 
 // Write a function to reverse a linked list.
+Node* reverseList(Node* head){
+    Node* next = nullptr;
+    Node* curr = head;
+    Node* prev = nullptr;
+
+    while(curr != nullptr){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
 
 // How do you detect a loop in a linked list? (Floyd’s algorithm)
+bool detectCycle(Node*head){
+    Node* fast = head;
+    Node* slow = head;
+    while(fast && fast ->next){
+        fast = fast->next->next;
+        slow = slow->next;
+        if(slow == fast){
+            return true;
+        }
+    }
+    return false;
 
-// Write a function to search an element in a linked list.
+}
