@@ -17,14 +17,15 @@ class HashTable {
 
     void insert(int key) {
         int index = hashFunction(key);
-        int ogIndex = index;
         if (hashTable[index] == -1) {
             hashTable[index] = key;
         } else {
+            int ogIndex = index;
             do {
                 index = (index + 1) % size;
                 if (hashTable[index] == -1) {
                     hashTable[index] = key;
+                    return;
                 }
             }
             while (index != ogIndex);
