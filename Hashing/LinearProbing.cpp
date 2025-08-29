@@ -15,57 +15,49 @@ class HashTable {
         return key % size;
     }
 
-    void insert(int key) {
-        int index = hashFunction(key);
-        if (hashTable[index] == -1) {
+   void insert(int key) {
+    int index = hashFunction(key);
+    int ogIndex = index;
+    do {
+        if (hashTable[index] == -1 || hashTable[index] == -2) { 
             hashTable[index] = key;
-        } else {
-            int ogIndex = index;
-            do {
-                index = (index + 1) % size;
-                if (hashTable[index] == -1) {
-                    hashTable[index] = key;
-                    return;
-                }
-            }
-            while (index != ogIndex);
-            cout << "Hash table is full, cannot insert key " << key << endl;
-
+            return;
         }
-    }
+        index = (index + 1) % size;
+    } while (index != ogIndex);
+    cout << "Hash table is full, cannot insert key " << key << endl;
+}
 
-    bool search(int key)
-    {
-        int index = hashFunction(key);
-        int originalIndex = index;
-        do
-        {
-            if (hashTable[index] == key)
-                return true;
-            if (hashTable[index] == -1)
-                return false;
-            index = (index + 1) % size;
-        } while (index != originalIndex);
-        return false;
-    }
+bool search(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    do {
+        if (hashTable[index] == key)
+            return true;
+        if (hashTable[index] == -1) // stop only if never occupied
+            return false;
+        index = (index + 1) % size;
+    } while (index != originalIndex);
+    return false;
+}
 
-    void deleteKey(int key){
-        int index = hashFunction(key);
-        int originalIndex = index;
-        do{
-            if (hashTable[index] == key){
-                hashTable[index] = -1;
-                return;
-            }
-            if (hashTable[index] == -1){
-                cout << "Key not found: " << key << endl;
-                return;
-            }
-            index = (index + 1) % size;
-        } 
-        while (index != originalIndex);
-        cout << "Key not found: " << key << endl;
-    }
+void deleteKey(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    do {
+        if (hashTable[index] == key) {
+            hashTable[index] = -2; // mark as deleted (tombstone)
+            return;
+        }
+        if (hashTable[index] == -1) {
+            cout << "Key not found: " << key << endl;
+            return;
+        }
+        index = (index + 1) % size;
+    } while (index != originalIndex);
+    cout << "Key not found: " << key << endl;
+}
+
 
     void display() {
         for (int i = 0; i < size; i++) {
