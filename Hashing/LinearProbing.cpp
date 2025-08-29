@@ -34,7 +34,7 @@ bool search(int key) {
     do {
         if (hashTable[index] == key)
             return true;
-        if (hashTable[index] == -1) // stop only if never occupied
+        if (hashTable[index] == -1)
             return false;
         index = (index + 1) % size;
     } while (index != originalIndex);
@@ -46,7 +46,7 @@ void deleteKey(int key) {
     int originalIndex = index;
     do {
         if (hashTable[index] == key) {
-            hashTable[index] = -2; // mark as deleted (tombstone)
+            hashTable[index] = -2; 
             return;
         }
         if (hashTable[index] == -1) {
