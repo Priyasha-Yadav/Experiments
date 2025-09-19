@@ -17,11 +17,17 @@ int main(){
     int count = 1;
     for(int i = 1; i <n; i++){
         for(int j = n - 1; j>i; j--){
-            cout<<"  ";
+            cout<<"   ";
         }
         for(int k = 1; k<= 2*i -1 ; k++){
+           if(count<10){
+            cout<<count<<"  ";
+            count++;
+           }
+           else{
             cout<<count<<" ";
             count++;
+           }
         }
         cout<<endl;
     }
